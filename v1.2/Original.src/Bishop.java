@@ -9,6 +9,7 @@ import javax.swing.ImageIcon;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
+
 public class Bishop extends ChessGamePiece{
     /**
      * Creates a new Bishop object.
@@ -39,7 +40,7 @@ public class Bishop extends ChessGamePiece{
         ArrayList<String> northWestMoves = calculateNorthWestMoves( board, 8 );
         ArrayList<String> southEastMoves = calculateSouthEastMoves( board, 8 );
         ArrayList<String> southWestMoves = calculateSouthWestMoves( board, 8 );
-        ArrayList<String> allMoves = new ArrayList<String>();
+        ArrayList<String> allMoves = new ArrayList<>();
         allMoves.addAll( northEastMoves );
         allMoves.addAll( northWestMoves );
         allMoves.addAll( southEastMoves );

@@ -1,0 +1,5 @@
+{
+    "java.autobuild.enabled": true,
+    "java.debug.settings.enableRunDebugCodeLens": true,
+    "java.debug.settings.forceBuildBeforeLaunch": true
+}

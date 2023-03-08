@@ -1,0 +1,5 @@
+INDEX VERSION 1.131+C:\Users\EDWARD\Downloads\EJERCICIO_INDIVIDUAL-main\.metadata\.plugins\org.eclipse.jdt.core
+3959137331.index
+1116255314.index
+1865797976.index
+966928229.index

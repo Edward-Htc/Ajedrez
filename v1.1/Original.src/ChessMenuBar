@@ -1,6 +1,8 @@
 import java.awt.Component;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.ArrayList;
+
 // -------------------------------------------------------------------------
 /**
  * Represents the north menu-bar that contains various controls for the game.
@@ -10,28 +12,32 @@ import javax.swing.*;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
-public class ChessMenuBar
-    extends JMenuBar{
+public class ChessMenuBar extends JMenuBar{
     // ----------------------------------------------------------
     /**
      * Create a new ChessMenuBar object.
      */
-    public ChessMenuBar(){
-        String[] menuCategories = { "File", "Options", "Help" };
-        String[] menuItemLists =
-        { "New game/restart,Exit", "Toggle graveyard,Toggle game log",
-          "About" };
-        for ( int i = 0; i < menuCategories.length; i++ ){
-            JMenu currMenu = new JMenu( menuCategories[i] );
-            String[] currMenuItemList = menuItemLists[i].split( "," );
-            for ( int j = 0; j < currMenuItemList.length; j++ ){
-                JMenuItem currItem = new JMenuItem( currMenuItemList[j] );
-                currItem.addActionListener( new MenuListener() );
-                currMenu.add( currItem );
-            }
-            this.add( currMenu );
+    private ArrayList<Observador> observadores;
+    
+    public ChessMenuBar() {
+        observadores = new ArrayList<>();
+        // ...
+    }
+
+    public void agregarObservador(Observador observador) {
+        observadores.add(observador);
+    }
+
+    public void eliminarObservador(Observador observador) {
+        observadores.remove(observador);
+    }
+
+    private void notificarObservadores(String evento) {
+        for (Observador observador : observadores) {
+            observador.actualizar(evento);
         }
     }
+}
     /**
      * Listener for the north menu bar.
      *
@@ -40,33 +46,25 @@ public class ChessMenuBar
      * @author Danielle Bushrow (dbushrow)
      * @version 2010.11.17
      */
-    private class MenuListener
-        implements ActionListener
-    {
-        /**
-         * Takes an appropriate action based on which menu button is clicked
-         *
-         * @param event
-         *            the mouse event from the source
-         */
+    public class MenuListener implements ActionListener {
         @Override
-        public void actionPerformed( ActionEvent event ){
-            String buttonName = ( (JMenuItem)event.getSource() ).getText();
-            if ( buttonName.equals( "About" ) ){
+        public void actionPerformed(ActionEvent event) {
+            String buttonName = ((JMenuItem) event.getSource()).getText();
+            if (buttonName.equals("About")) {
                 aboutHandler();
-            }
-            else if ( buttonName.equals( "New game/restart" ) ){
+                notificarObservadores("Se mostró la ventana 'Acerca de'");
+            } else if (buttonName.equals("New game/restart")) {
                 restartHandler();
-            }
-            else if ( buttonName.equals( "Toggle game log" ) ){
+                notificarObservadores("Se reinició el juego");
+            } else if (buttonName.equals("Toggle game log")) {
                 toggleGameLogHandler();
-            }
-            else if ( buttonName.equals( "Exit" ) ){
+                notificarObservadores("Se cambió la visibilidad del registro de juego");
+            } else if (buttonName.equals("Exit")) {
                 exitHandler();
-            }
-            else
-            {
+                notificarObservadores("Se cerró la aplicación");
+            } else {
                 toggleGraveyardHandler();
+                notificarObservadores("Se cambió la visibilidad del cementerio");
             }
         }
     }

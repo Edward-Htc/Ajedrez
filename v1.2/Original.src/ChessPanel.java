@@ -9,6 +9,12 @@ import javax.swing.*;
  * @author Danielle Bushrow (dbushrow)
  * @version 2010.11.17
  */
+
+
+/*
+ * El patrón de diseño utilizado en este código es el patrón de diseño de Diseño de Interfaz de Usuario (UI) conocido como BorderLayout. Este patrón organiza los componentes de una interfaz de usuario en cinco regiones, que son: Norte, Sur, Este, Oeste y Centro. En este código, se puede ver que se utiliza BorderLayout para organizar los diferentes componentes de la interfaz de usuario del juego de ajedrez en diferentes regiones de la ventana. Además, el código también proporciona métodos para acceder a los objetos relacionados con el juego, como el registro de juego, el tablero de juego y el motor de juego.
+ */
+
 public class ChessPanel
     extends JPanel{
     private ChessMenuBar    menuBar;
@@ -16,7 +22,7 @@ public class ChessPanel
     private ChessGameLog    gameLog;
     private ChessGraveyard  playerOneGraveyard;
     private ChessGraveyard  playerTwoGraveyard;
-    private ChessGameEngine gameEngine;
+    private transient ChessGameEngine gameEngine;
     // ----------------------------------------------------------
     /**
      * Create a new ChessPanel object.
@@ -25,7 +31,7 @@ public class ChessPanel
         this.setLayout( new BorderLayout() );
         menuBar = new ChessMenuBar();
         gameBoard = new ChessGameBoard();
-        gameLog = new ChessGameLog();
+        gameLog = ChessGameLog.getInstance();
         playerOneGraveyard = new ChessGraveyard( "Player 1's graveyard" );
         playerTwoGraveyard = new ChessGraveyard( "Player 2's graveyard" );
         this.add( menuBar, BorderLayout.NORTH );
